@@ -7,6 +7,8 @@ module.exports = {
         theme: {
           smoky: "#131200",
           mantis: "#78BC61",
+          lightpurple: "#faf0ff",
+          sparkling: "#c61aff",
           purple: "#6E2594",
           salmon: "#E9806E",
         },
