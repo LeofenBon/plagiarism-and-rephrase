@@ -19,20 +19,20 @@ function Landing() {
 
   createEffect(() => {
 
-    switch (currentState()) {
-      case "plagiarismCheck":
-        _getPlagiarismResult().then((res) => {
-          setPlagiarimResponse(res);
-          setCurrentState("plagiarismResult");
-        });
-        break;
-      case "rephraseCheck":
-        _getRephraseResult().then((res) => {
-          setRephraseResponse(res);
-          setCurrentState("rephraseResult");
-        });
-        break;
-    }
+    // switch (currentState()) {
+    //   case "plagiarismCheck":
+    //     _getPlagiarismResult().then((res) => {
+    //       setPlagiarimResponse(res);
+    //       setCurrentState("plagiarismResult");
+    //     });
+    //     break;
+    //   case "rephraseCheck":
+    //     _getRephraseResult().then((res) => {
+    //       setRephraseResponse(res);
+    //       setCurrentState("rephraseResult");
+    //     });
+    //     break;
+    // }
 
   });
 
