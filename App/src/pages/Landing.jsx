@@ -1,6 +1,59 @@
-import { A } from "@solidjs/router";
-import TextField from "../components/TextField";
+import { Dynamic } from "solid-js/web";
+import { createSignal, createEffect } from "solid-js";
+
+import Loader from "../components/Loading";
+import CheckPlagiarism from "../components/CheckPlagiarism";
+import PlagiarismResult from "../components/PlagiarismResult";
+import RephraseResult from "../components/RephraseResult";
+
+import {
+  _getPlagiarismResult,
+  _getRephraseResult,
+} from "../services/apiService";
+
 function Landing() {
+
+  const [currentState, setCurrentState] = createSignal("rephraseResult");
+  const [plagiarismResponse, setPlagiarimResponse] = createSignal(null);
+  const [rephraseResponse, setRephraseResponse] = createSignal(null);
+
+  createEffect(() => {
+
+    switch (currentState()) {
+      case "plagiarismCheck":
+        _getPlagiarismResult().then((res) => {
+          setPlagiarimResponse(res);
+          setCurrentState("plagiarismResult");
+        });
+        break;
+      case "rephraseCheck":
+        _getRephraseResult().then((res) => {
+          setRephraseResponse(res);
+          setCurrentState("rephraseResult");
+        });
+        break;
+    }
+
+  });
+
+  const allStates = {
+    default: <CheckPlagiarism setCurrentState={setCurrentState} />,
+    plagiarismCheck: Loader,
+    plagiarismResult: (
+      <PlagiarismResult
+        plagiarismResponse={plagiarismResponse}
+        setCurrentState={setCurrentState}
+      />
+    ),
+    rephraseCheck: Loader,
+    rephraseResult: (
+      <RephraseResult
+        rephraseResponse={rephraseResponse}
+        setCurrentState={setCurrentState}
+      />
+    ),
+  };
+
   return (
     <>
       <main>
@@ -11,20 +64,8 @@ function Landing() {
               <span class="font-light">plagiarism </span>
               <span class="text-theme-purple font-light">checker.</span>
             </div>
-
             <div class="flex justify-center mt-12 px-10">
-              <div class="grow">
-                <TextField />
-                <button
-                  type="submit"
-                  class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-theme-sparkling rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
-                >
-                  Check plagiarism
-                </button>
-              </div>
-              <div class="grow">
-                <TextField />
-              </div>
+              <Dynamic component={allStates[currentState()]} />
             </div>
           </div>
         </div>
