@@ -19,20 +19,20 @@ function Landing() {
 
   createEffect(() => {
 
-    // switch (currentState()) {
-    //   case "plagiarismCheck":
-    //     _getPlagiarismResult().then((res) => {
-    //       setPlagiarimResponse(res);
-    //       setCurrentState("plagiarismResult");
-    //     });
-    //     break;
-    //   case "rephraseCheck":
-    //     _getRephraseResult().then((res) => {
-    //       setRephraseResponse(res);
-    //       setCurrentState("rephraseResult");
-    //     });
-    //     break;
-    // }
+    switch (currentState()) {
+      case "plagiarismCheck":
+        _getPlagiarismResult().then((res) => {
+          setPlagiarimResponse(res);
+          setCurrentState("plagiarismResult");
+        });
+        break;
+      case "rephraseCheck":
+        _getRephraseResult().then((res) => {
+          setRephraseResponse(res);
+          setCurrentState("rephraseResult");
+        });
+        break;
+    }
 
   });
 
@@ -62,7 +62,7 @@ function Landing() {
             <div class="xl:text-9xl text-6xl text-center">
               <span>Easy </span>
               <span class="font-light">plagiarism </span>
-              <span class="text-theme-purple font-light">check</span>
+              <span class="text-theme-purple font-light">checker</span>
             </div>
             <div class="flex justify-center mt-12 px-10">
               <Dynamic component={allStates[currentState()]} />
