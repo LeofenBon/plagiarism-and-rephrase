@@ -13,7 +13,7 @@ import {
 
 function Landing() {
 
-  const [currentState, setCurrentState] = createSignal("rephraseResult");
+  const [currentState, setCurrentState] = createSignal("default");
   const [plagiarismResponse, setPlagiarimResponse] = createSignal(null);
   const [rephraseResponse, setRephraseResponse] = createSignal(null);
 
