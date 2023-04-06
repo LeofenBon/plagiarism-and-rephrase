@@ -1,4 +1,4 @@
-import { Dynamic } from "solid-js/web";
+import { Switch, Match } from "solid-js/web";
 import { createSignal, createEffect } from "solid-js";
 
 import Loader from "../components/Loading";
@@ -36,24 +36,6 @@ function Landing() {
 
   });
 
-  const allStates = {
-    default: <CheckPlagiarism setCurrentState={setCurrentState} />,
-    plagiarismCheck: Loader,
-    plagiarismResult: (
-      <PlagiarismResult
-        plagiarismResponse={plagiarismResponse}
-        setCurrentState={setCurrentState}
-      />
-    ),
-    rephraseCheck: Loader,
-    rephraseResult: (
-      <RephraseResult
-        rephraseResponse={rephraseResponse}
-        setCurrentState={setCurrentState}
-      />
-    ),
-  };
-
   return (
     <>
       <main>
@@ -62,10 +44,26 @@ function Landing() {
             <div class="xl:text-9xl text-6xl text-center">
               <span>Easy </span>
               <span class="font-light">plagiarism </span>
-              <span class="text-theme-purple font-light">check</span>
+              <span class="text-theme-purple font-light">checker</span>
             </div>
             <div class="flex justify-center mt-12 px-10">
-              <Dynamic component={allStates[currentState()]} />
+              <Switch fallback={<Loader />}>
+                <Match when={currentState() === "default"}>
+                  <CheckPlagiarism setCurrentState={setCurrentState} />
+                </Match>
+                <Match when={currentState() === "plagiarismResult"}>
+                  <PlagiarismResult
+                    plagiarismResponse={plagiarismResponse}
+                    setCurrentState={setCurrentState}
+                  />
+                </Match>
+                <Match when={currentState() === "rephraseResult"}>
+                  <RephraseResult
+                    rephraseResponse={rephraseResponse}
+                    setCurrentState={setCurrentState}
+                  />
+                </Match>
+              </Switch>
             </div>
           </div>
         </div>
