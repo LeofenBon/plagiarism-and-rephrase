@@ -1,20 +1,20 @@
-function PlagiarismResult({ setCurrentState }) {
+function PlagiarismResult({ setCurrentState, plagiarismResponse }) {
   return (
     <>
       <div class="w-full p-4">
-        <div class="flex space-x-16 border border-theme-purple bg-theme-lightpurple rounded-lg shadow sm:p-8">
+        <div class="flex flex-col sm:flex-row sm:space-x-16 border border-theme-purple bg-theme-lightpurple rounded-lg shadow sm:p-8 p-3">
           <div>
             <h5 class="mb-1 text-xl font-medium text-gray-500">
               Plagiarism Score
             </h5>
             <div class="flex items-baseline text-gray-900">
               <span class="text-5xl text-theme-purple font-bold tracking-tight">
-                49
+                {plagiarismResponse().percentPlagiarism}
               </span>
               <span class="ml-1 text-xl font-normal text-gray-500">%</span>
             </div>
           </div>
-          <ul role="list" class="space-y-5 my-4">
+          <ul role="list" class="sm:space-y-5 space-y-2 my-4">
             <li class="flex space-x-3">
               <svg
                 aria-hidden="true"
@@ -31,7 +31,10 @@ function PlagiarismResult({ setCurrentState }) {
                 ></path>
               </svg>
               <span class="text-base font-normal leading-tight text-gray-500">
-                2 article found
+                {plagiarismResponse().sources
+                  ? plagiarismResponse().sources?.length
+                  : 0}{" "}
+                sources found
               </span>
             </li>
             <li class="flex space-x-3">
@@ -50,11 +53,21 @@ function PlagiarismResult({ setCurrentState }) {
                 ></path>
               </svg>
               <span class="text-base font-normal leading-tight text-gray-500">
-                20 citations found
+                {plagiarismResponse().citations
+                  ? plagiarismResponse().citations?.length
+                  : 0}{" "}
+                citations found
               </span>
             </li>
           </ul>
         </div>
+        <button
+          type="submit"
+          class="mt-5 mr-2 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-theme-sparkling rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-theme-purple"
+          onClick={() => setCurrentState("default")}
+        >
+          Start Over
+        </button>
         <button
           type="button"
           class="text-white bg-theme-sparkling hover:bg-theme-purple focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center text-center mt-5"
