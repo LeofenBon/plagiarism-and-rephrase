@@ -20,7 +20,6 @@ function Landing() {
   return (
     <>
       <main>
-        {import.meta.env.VITE_RAPID_API_KEY}
         <div class="bg-white text-theme-black flex justify-center pb-20">
           <div class="sm:mt-14 mt-28 px-30">
             <div class="xl:text-9xl text-6xl text-center">
