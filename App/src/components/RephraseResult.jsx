@@ -1,8 +1,8 @@
 function RephraseResult({ setCurrentState }) {
   return (
     <>
-      <div class="w-4/5">
-        <div class="p-6 bg-white border border-gray-200 rounded-lg shadow">
+      <div class="sm:w-4/5">
+        <div class="sm:p-6 p-1 bg-white border border-gray-200 rounded-lg shadow">
           <a href="#">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
               Your rephrased article is here:
